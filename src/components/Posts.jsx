@@ -1,10 +1,32 @@
-import { useState } from "react";
 function Posts(props) {
   const post = props.post;
-  const [counter, setCounter] = useState(post.likes);
-  const handleLikeClick = () => setCounter(counter + 1);
-  const handleDislikeClick = () =>
-    counter <= 0 ? counter : setCounter(counter - 1);
+  const index = props.index;
+  const posts = props.posts;
+  const setPosts = props.setPosts;
+
+  const handleLikeClick = () => {
+    const updatedPosts = posts.map((curPost, curIndex) => {
+      if (index === curIndex) {
+        return { ...curPost, likes: curPost.likes + 1 };
+      }
+      return curPost;
+    });
+    setPosts(updatedPosts);
+  };
+
+  const handleDislikeClick = () => {
+    const updatedPosts = posts.map((curPost, curIndex) => {
+      if (curPost.likes <= 0) {
+        return curPost;
+      }
+      if (index === curIndex) {
+        return { ...curPost, likes: curPost.likes - 1 };
+      }
+      return curPost;
+    });
+    setPosts(updatedPosts);
+  };
+
   return (
     <div className="app-wrapper">
       <h1 className="app-title">Posts</h1>
@@ -14,7 +36,7 @@ function Posts(props) {
             <h2>{post.title}</h2>
             <div className="post-social-media-stats">
               <span className="stats-topic">Likes: </span>
-              <span className="post-likes">{counter}</span>
+              <span className="post-likes">{post.likes}</span>
             </div>
           </div>
           <p className="post-content">{post.content}</p>
