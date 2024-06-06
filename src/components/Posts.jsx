@@ -70,15 +70,14 @@ const postData = [
   },
 ];
 
-/////
-
 function Posts() {
   const [postList, setPostList] = useState(postData);
 
   const updateLikes = (postIndex, like) => {
     const newPostList = postList.map((post, index) => {
       if (index === postIndex) {
-        return { ...post, likes: post.likes + like };
+        const newLikes = post.likes + like;
+        return { ...post, likes: newLikes < 0 ? 0 : newLikes };
       }
       return post;
     });
