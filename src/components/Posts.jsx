@@ -1,31 +1,7 @@
 function Posts(props) {
   const post = props.post;
-  const index = props.index;
-  const posts = props.posts;
-  const setPosts = props.setPosts;
-
-  const handleLikeClick = () => {
-    const updatedPosts = posts.map((curPost, curIndex) => {
-      if (index === curIndex) {
-        return { ...curPost, likes: curPost.likes + 1 };
-      }
-      return curPost;
-    });
-    setPosts(updatedPosts);
-  };
-
-  const handleDislikeClick = () => {
-    const updatedPosts = posts.map((curPost, curIndex) => {
-      if (curPost.likes <= 0) {
-        return curPost;
-      }
-      if (index === curIndex) {
-        return { ...curPost, likes: curPost.likes - 1 };
-      }
-      return curPost;
-    });
-    setPosts(updatedPosts);
-  };
+  const handleLikeClick = props.handleLikeClick;
+  const handleDislikeClick = props.handleDislikeClick;
 
   return (
     <div className="app-wrapper">
