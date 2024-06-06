@@ -7,25 +7,16 @@ function App() {
   const [posts, setPosts] = useState(blogPosts);
 
   const handleLikeClick = (index) => {
-    const updatedPosts = posts.map((curPost, curIndex) => {
-      if (index === curIndex) {
-        return { ...curPost, likes: curPost.likes + 1 };
-      }
-      return curPost;
-    });
+    const updatedPosts = [...posts];
+    updatedPosts[index].likes += 1;
     setPosts(updatedPosts);
   };
 
   const handleDislikeClick = (index) => {
-    const updatedPosts = posts.map((curPost, curIndex) => {
-      if (curPost.likes <= 0) {
-        return curPost;
-      }
-      if (index === curIndex) {
-        return { ...curPost, likes: curPost.likes - 1 };
-      }
-      return curPost;
-    });
+    const updatedPosts = [...posts];
+    if (updatedPosts[index].likes > 0) {
+      updatedPosts[index].likes -= 1;
+    }
     setPosts(updatedPosts);
   };
 
